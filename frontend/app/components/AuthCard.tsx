@@ -11,71 +11,77 @@ export default function AuthCard({ children }: { children: React.ReactNode }) {
   const isSignup = pathname === "/signup";
 
   return (
-    <motion.div className="min-h-screen flex items-center justify-center p-4 bg-transparent">
+    <div className="min-h-screen flex items-center justify-center bg-transparent">
       <motion.div
-        initial={{ scale: 0.92, y: 30 }}
-        animate={{ scale: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="w-[60%] max-w-4xl bg-white rounded-2xl shadow-2xl flex overflow-hidden"
+        key={pathname}
+        initial={{ x: isLogin ? 300 : -300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.65, ease: "easeInOut" }}
+        className="
+          w-[68%] max-w-5xl
+          bg-white rounded-3xl shadow-2xl 
+          flex overflow-hidden
+        "
       >
-        {/* LEFT GRADIENT PANEL */}
+
+        {/* IMAGE / DESIGN PANEL */}
         <motion.div
-          initial={{ x: -50, opacity: 0 }}
+          initial={{ x: isLogin ? -120 : 120, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.45 }}
-          className="hidden md:flex w-1/3 bg-linear-to-b from-blue-300 to-blue-800 
-                     flex-col items-center justify-start relative py-10"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className={`hidden md:flex w-1/2 relative ${isLogin ? "order-1" : "order-2"}`}
         >
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+          {/* Stronger Blue Background */}
+          <div
+            className="
+              absolute inset-0 bg-gradient-to-br
+              from-[#b6e3ff] to-[#58c3ff]
+              bg-cover bg-center
+            "
+          ></div>
 
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="w-40 h-40 object-contain relative z-10 mb-8 -mt-16"
-          />
+          {/* Glass overlay */}
+          <div className="absolute inset-0 bg-white/20 backdrop-blur-lg rounded-3xl"></div>
 
-          <div className="relative z-10 flex flex-col gap-2 w-full items-end">
+          {/* Buttons */}
+          <div className="relative z-10 flex flex-col gap-4 w-full items-center justify-center">
+            <Link
+              href="/login"
+              className={`px-8 py-2 rounded-full font-semibold text-lg transition
+                ${
+                  isLogin
+                    ? "bg-white text-[#38bdf8] shadow-lg"
+                    : "text-white border border-white"
+                }`}
+            >
+              Login
+            </Link>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/login"
-                className={`block w-[95px] text-center p-2 rounded-full font-semibold text-md transition-all duration-300
-                  ${
-                    isLogin
-                      ? "bg-white text-blue-500 translate-x-4"
-                      : "text-white translate-x-2"
-                  }`}
-              >
-                Login
-              </Link>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/signup"
-                className={`block w-[95px] text-center p-2 rounded-full font-semibold text-md transition-all duration-300
-                  ${
-                    isSignup
-                      ? "bg-white text-blue-500 translate-x-4"
-                      : "text-white translate-x-2"
-                  }`}
-              >
-                Sign Up
-              </Link>
-            </motion.div>
-
+            <Link
+              href="/signup"
+              className={`px-8 py-2 rounded-full font-semibold text-lg transition
+                ${
+                  isSignup
+                    ? "bg-white text-[#38bdf8] shadow-lg"
+                    : "text-white border border-white"
+                }`}
+            >
+              Sign Up
+            </Link>
           </div>
         </motion.div>
 
+        {/* FORM SIDE */}
         <motion.div
-          initial={{ x: 50, opacity: 0 }}
+          initial={{ x: isLogin ? 120 : -120, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.45 }}
-          className="w-full md:w-2/3 p-10"
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className={`w-full md:w-1/2 p-10 ${isLogin ? "order-2" : "order-1"}`}
         >
           {children}
         </motion.div>
+
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,27 +1,30 @@
 "use client";
 
-import { ReactNode } from "react";
 import { useAuth } from "../context/AuthContext";
 import HeaderBeforeLogin from "./HeaderBeforeLogin";
 import HeaderAfterLogin from "./HeaderAfterLogin";
 import Footer from "./Footer";
+import { usePathname } from "next/navigation";
 
-interface WrapperProps {
-  children: ReactNode;
-}
-
-export default function ClientWrapper({ children }: WrapperProps) {
+export default function ClientWrapper({ children }) {
   const { user, loading } = useAuth();
+  const pathname = usePathname();
 
   if (loading) return null;
 
+  // pages where header & footer should be hidden
+  const hideLayout =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/forgot-password";
+
   return (
     <>
-      {user ? <HeaderAfterLogin /> : <HeaderBeforeLogin />}
+      {!hideLayout && (user ? <HeaderAfterLogin /> : <HeaderBeforeLogin />)}
 
       {children}
 
-      <Footer />
+      {!hideLayout && <Footer />}
     </>
   );
 }
