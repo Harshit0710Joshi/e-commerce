@@ -7,101 +7,27 @@ import { Search, Heart, ShoppingCart, User } from "lucide-react";
 export default function HeaderAfterLogin() {
   return (
     <header className="w-full sticky top-4 z-50 flex justify-center">
-      
-      {/* FLOATING WHITE PROFESSIONAL HEADER */}
-      <div
-        className="
-          w-[90%] max-w-7xl
-          bg-white
-          border border-gray-200
-          rounded-[2.2rem]
-          shadow-[0_6px_20px_rgba(0,0,0,0.10)]
-          px-10 py-4
-          flex items-center justify-between gap-8
-          transition-all
-        "
-      >
-        {/* LEFT — LOGO */}
-        <Image
-          src="/logo.png"
-          alt="Logo"
-          width={140}
-          height={40}
-          className="object-contain"
-        />
+      <div className="w-[93%] max-w-7xl bg-white border border-gray-200 rounded-[2.2rem] shadow-[0_6px_20px_rgba(0,0,0,0.12)] px-8 py-3 flex items-center gap-6">
+        
+        <Link href="/">
+          <Image src="/logo.png" alt="OneVriksh" width={135} height={40} />
+        </Link>
 
-        {/* CENTER — SEARCH BAR */}
-        <div className="flex-1 flex justify-center">
-          <div
-            className="
-              flex items-center
-              w-full max-w-[550px]
-              bg-gray-100
-              rounded-xl
-              border border-gray-300
-              overflow-hidden
-            "
-          >
-            <Search className="text-gray-600 ml-3" size={20} />
-
-            <input
-              type="text"
-              placeholder="Search electronics, books, accessories..."
-              className="
-                flex-1 px-3 py-2
-                bg-transparent text-gray-800
-                placeholder-gray-500
-                outline-none
-              "
-            />
-
-            <button
-              className="
-                bg-blue-600
-                hover:bg-blue-700
-                text-white font-medium
-                px-5 py-2
-                transition
-              "
-            >
-              Search
+        <div className="flex-1 hidden md:flex justify-center">
+          <div className="w-full max-w-xl flex items-center border border-gray-300 rounded-full overflow-hidden bg-white">
+            <input className="flex-1 px-4 py-2.5 text-sm outline-none" placeholder="Search products" />
+            <button className="h-full px-6 bg-sky-600 text-white hover:bg-sky-700">
+              <Search size={18} />
             </button>
           </div>
         </div>
 
-        {/* RIGHT — ICONS AFTER LOGIN */}
-        <div className="flex items-center gap-6 text-gray-700">
-
-          {/* Wishlist */}
-          <Heart
-            size={22}
-            className="cursor-pointer hover:text-blue-600 transition"
-          />
-
-          {/* Cart */}
-          <div className="relative cursor-pointer hover:text-blue-600 transition">
-            <ShoppingCart size={22} />
-            <span
-              className="
-                absolute -top-2 -right-2
-                bg-blue-600 text-white
-                text-xs font-semibold
-                w-5 h-5 flex items-center justify-center
-                rounded-full
-              "
-            >
-              3
-            </span>
-          </div>
-
-          {/* USER ACCOUNT ICON */}
-          <Link href="/account">
-            <User
-              size={26}
-              className="cursor-pointer hover:text-blue-600 transition"
-            />
+        <div className="flex items-center gap-5 text-gray-700">
+          <Link href="/wishlist"><Heart size={22} /></Link>
+          <Link href="/cart"><ShoppingCart size={22} /></Link>
+          <Link href="/account" className="px-5 py-2 border rounded-full flex gap-2">
+            <User size={18} /> Account
           </Link>
-
         </div>
       </div>
     </header>
