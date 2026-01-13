@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext<any>(null);
 
-function decodeJwt(token) {
+function decodeJwt(token: string) {
   try {
     const payload = token.split('.')[1];
     const decoded = JSON.parse(atob(payload));
@@ -14,7 +14,7 @@ function decodeJwt(token) {
   }
 }
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const login = (t) => {
+  const login = (t: string) => {
     const payload = decodeJwt(t);
     if (payload) {
       setUser({ email: payload.sub, role: payload.role });
