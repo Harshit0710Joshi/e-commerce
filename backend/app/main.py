@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.auth.routes import router as auth_router
-from app.models import User
-from app.database import Base, engine, SessionLocal
-from app.utils import hash_password
+from .auth.routes import router as auth_router
+from .models import User
+from .database import Base, engine, SessionLocal
+from .utils import hash_password
 from sqlalchemy.orm import Session
-from app.admin import router as admin_router
+from .admin import router as admin_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -18,10 +18,13 @@ if not db.query(User).filter(User.email == "admin@example.com").first():
 
 app = FastAPI()
 
-# Allow requests from frontend dev origin
+import os
+
+# Allow requests from frontend origins (dev and production)
+frontend_origins = os.getenv("FRONTEND_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=frontend_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
