@@ -1,7 +1,7 @@
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const backend = process.env.BACKEND_URL || "http://localhost:8000";
+    const backend = process.env.BACKEND_URL || "https://e-commerce-backend-2mm7.onrender.com";
     const res = await fetch(`${backend}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
