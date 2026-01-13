@@ -25,6 +25,8 @@
     "react-slick": "^0.31.0",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^3.4.0",
+    "@prisma/client": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "zod": "^4.1.13"
   },
   "devDependencies": {
