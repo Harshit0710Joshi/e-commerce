@@ -7,7 +7,7 @@ export default function UsersPage() {
     { id: 2, email: "bob@example.com", role: "admin" },
   ]);
 
-  function toggleAdmin(id) {
+  function toggleAdmin(id: number) {
     setUsers((s) => s.map((u) => (u.id === id ? { ...u, role: u.role === "admin" ? "user" : "admin" } : u)));
   }
 
